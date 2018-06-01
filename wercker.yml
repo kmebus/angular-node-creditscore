@@ -36,7 +36,7 @@ deploy-to-oke:
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: apply -f $WERCKER_ROOT/ingress.yml --namespace=$WERCKER_APPLICATION_OWNER_NAME
+        command: apply -f $WERCKER_ROOT/ingress.yml.template --namespace=$WERCKER_APPLICATION_OWNER_NAME
           
     - kubectl:
         name: get LoadBalancer public IP address
