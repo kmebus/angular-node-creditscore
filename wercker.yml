@@ -26,3 +26,10 @@ deploy-to-oke:
           token: $KUBERNETES_TOKEN
           insecure-skip-tls-verify: true
           command: set image deployment/jscreditscore jscreditscore=docker.io/kmebus/jscreditscore:${WERCKER_GIT_COMMIT}
+          
+    - kubectl:
+        name: get LoadBalancer public IP address
+        server: $KUBERNETES_MASTER
+        token: $KUBERNETES_TOKEN
+        insecure-skip-tls-verify: true
+        command: get svc -o jsonpath='{.items[*].status.loadBalancer.ingress[*].ip}' --all-namespaces
