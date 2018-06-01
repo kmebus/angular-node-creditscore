@@ -7,7 +7,7 @@ build:
 
 push-to-docker-registry:
   steps:
-    # Push to public docker repo Container Registry (CR)
+    # Push to public docker repo Container Registry (CR) KMebus
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
