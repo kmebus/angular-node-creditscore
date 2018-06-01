@@ -27,7 +27,7 @@ deploy-to-oke:
           insecure-skip-tls-verify: true
           command: set image deployment/jscreditscore jscreditscore=docker.io/kmebus/jscreditscore:${WERCKER_GIT_COMMIT}
           
-     - script:
+    - script:
         name: "Visualise Ingress config"
         code: cat ingress.yml
 
