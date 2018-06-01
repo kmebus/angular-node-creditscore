@@ -3,18 +3,7 @@ build:
   steps:
     - script:
         name: A step that executes `npm install` command
-        code: npm install
-    
-    - kubectl:
-        name: create namespace    
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f $WERCKER_ROOT/kubernetes-namespace.yml.template
- 
-    - script:
-        name: wait to create namespace
-        code: sleep 10     
+        code: npm install   
 
 push-to-docker-registry:
   steps:
@@ -37,21 +26,3 @@ deploy-to-oke:
           token: $KUBERNETES_TOKEN
           insecure-skip-tls-verify: true
           command: set image deployment/jscreditscore jscreditscore=docker.io/kmebus/jscreditscore:${WERCKER_GIT_COMMIT}
-          
-    - script:
-        name: "Visualise Ingress config"
-        code: cat ingress.yml.template
-
-    - kubectl:
-        name: create Ingress configuration
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f $WERCKER_ROOT/ingress.yml.template --namespace=$WERCKER_APPLICATION_OWNER_NAME
-          
-    - kubectl:
-        name: get LoadBalancer public IP address
-        server: $KUBERNETES_MASTER
-        token: $KUBERNETES_TOKEN
-        insecure-skip-tls-verify: true
-        command: get svc -o jsonpath='{.items[*].status.loadBalancer.ingress[*].ip}' --all-namespaces
