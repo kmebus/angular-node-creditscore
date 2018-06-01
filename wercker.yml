@@ -29,7 +29,7 @@ deploy-to-oke:
           
     - script:
         name: "Visualise Ingress config"
-        code: cat ingress.yml
+        code: cat ingress.yml.template
 
     - kubectl:
         name: create Ingress configuration
